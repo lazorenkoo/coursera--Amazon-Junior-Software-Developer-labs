@@ -1,0 +1,13 @@
+.idea/
+*.iml
+out/
+target/
+build/
+.gradle/
+.classpath
+.project
+.settings/
+.DS_Store
+
+Solution/
+IdeaProjects
