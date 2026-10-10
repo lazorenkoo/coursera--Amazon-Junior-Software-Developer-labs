@@ -48,6 +48,7 @@ public class DoublyLinkedPlaylistManager {
                 last = last.next;
             }
             last.next = newNode;
+            newNode.previous = last;
             //TODO 21: set the previous reference of the new node to the last node
         }
         System.out.println(newSong.getTitle() + " added to the playlist.");
@@ -79,6 +80,7 @@ public class DoublyLinkedPlaylistManager {
             System.out.println(head.song.getTitle() + " removed from the playlist.");
             head = head.next;
             if (head != null) {
+                head.previous = null;
                 // TODO 22: updates the previous reference of the head with null if the first node is removed.
             }
             return;
@@ -94,9 +96,11 @@ public class DoublyLinkedPlaylistManager {
         } else {
             System.out.println(current.song.getTitle() + " removed from the playlist.");
             if (current.previous != null) {
+                current.previous.next = current.next;
                 //TODO 23: update the next reference of the previous node to skip over the current node.
             }
             if (current.next != null) {
+                current.next.previous = current.previous;
                 //TODO 24: update the previous reference of the next node to point to the previous node of the current node.
             }
         }
@@ -129,9 +133,15 @@ public class DoublyLinkedPlaylistManager {
 
     // Method to play the previous song in the playlist
     public void playPreviousFavoriteSong() {
+        if(current == null || current.previous == null) {
+            System.out.println("No previous song in the playlist.");
+            return;
+        }
         //TODO 25: checks if the current node is null or if current.previous is null
         // If no previous song exists, print a message indicating playlist is empty
+        current = current.previous;
         //TODO 26: sets current to current.previous
+        System.out.println(current.song.getTitle() + " " + current.song.getArtist());
         //TODO 27: print the song that is now playing
     }
     // Method to start playing from the first song in the playlist
