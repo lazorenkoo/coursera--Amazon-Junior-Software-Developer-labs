@@ -16,10 +16,11 @@ public class WaitingList {
 
         String studentLastName = "Carson";
         // TODO 7 : Change the value of option to 1
+
         // TODO 12: Change the value of option to 2
         // TODO 16: Change the value of option to 3
         // TODO 20: Change the value of option to 4
-        int option = //VALUE OF OPTION;
+        int option = 4; //VALUE OF OPTION;
 
         System.out.println();
         switch (option) {

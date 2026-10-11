@@ -1,33 +1,57 @@
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 // TODO 1: Import HashMap, Map, and Set types
 
 
 public class ListManager {
 
     // TODO 2: Create a new hash map named studentsMap //
-
+    static HashMap<String,Student> studentsMap = new HashMap<>();
 
     public ListManager(Student [] students){
         /* TODO 3:  Iterate through the studentsArray and add the
                     data to the studentsMap. Use the students'
                     last names as the keys and the student
                     objects as the values  */
+        for(Student student : students){
+        studentsMap.put(student.lastName, student);
+        }
+
     }
+
+
 
 
     public void listStudents( ){
 
         // TODO 4: Check if studentsMap is empty.
-
+        if(studentsMap.isEmpty())
+        {
+            System.out.println("There is no students in the list");
+            return;
+        }
+        for(Map.Entry<String, Student> entry : studentsMap.entrySet()){
+            System.out.println(entry.getValue().toString());
+        }
+    }
         // TODO 5: If studentsMap is empty, print an alert saying that
 
         /* TODO 6: If the studentMap is not empty, print a list of all
                    student  */
 
-    }
+
 
     public void findStudent(String lastName){
-
+    for(Map.Entry<String,Student> entry : studentsMap.entrySet())
+            {
+             if(entry.getKey().equals(lastName))
+             {
+                 System.out.println(entry.getValue().toString());
+                 return;
+             }
+            }
+        System.out.println("There is no student with the given last name");
         // TODO 8: Check if studentsMap contains the last name.
         // If not, print: "Student with name 'X' does not exist." and return.
         // TODO 9: If the key exists, get a reference to the Student object using studentsMap.get(lastName)
@@ -37,6 +61,19 @@ public class ListManager {
 
 
     public void updateStudentStatus(String lastName, String newStatus){
+
+        Student student = studentsMap.get(lastName);
+        if(student == null)
+        {
+            System.out.println("There is no student with the given last name");
+
+        }
+        else
+        {
+            student.status = newStatus;
+            System.out.println("Student status updated to " + newStatus);
+        }
+    }
        /* TODO 13: use the get() method on studentMap to obtain a
         reference to the Student object */
     /* TODO 14: if the student exists, change the status to
@@ -46,6 +83,14 @@ public class ListManager {
     public void removeStudent(String lastName){
         /* TODO 17: using the lastName parameter, attempt to remove
         a student from the studentsMap */
+        if(studentsMap.remove(lastName) == null)
+        {
+            System.out.println("There is no student with the given last name");
+        }
+        else
+        {
+            System.out.println("Student was successfully removed");
+        }
     /* TODO 18: print a message confirmation and student
         information if the student was successfully removed. */
     /* TODO 19: if the student is not removed, print
