@@ -1,12 +1,14 @@
 // TODO 1: Change the HashMap import into a tree map import
+import com.sun.source.tree.Tree;
+
 import java.util.Map;
 import java.util.Set;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class ListManager {
 
     // TODO 2: Change studentsMap from HashMap to TreeMap
-    HashMap studentsMap = new HashMap();
+    TreeMap studentsMap = new TreeMap();
 
     public ListManager(Student [] students){
 
@@ -72,10 +74,18 @@ public class ListManager {
 public void findFirstStudent(){
 
     // TODO 3: Get the first Entry in studentsMap
-
+    Map.Entry<String,Student> first = studentsMap.firstEntry();
+    Student student = null;
+    if(first != null){
+        student = (Student)first.getValue();
+    }
     /* TODO 4: If the first entry exists, get the Student object
         from the entry */
-
+    if(student!=null){
+        System.out.println(student.toString());
+        return;
+    }
+    System.out.println("Student does not exist.");
     // TODO 5: If the Student is not null, print the Student object
 
     // TODO 6: If the Student is not null, return from the method.
@@ -88,23 +98,40 @@ public void findFirstStudent(){
     public void findLastStudent(){
 
         // TODO 9: Get the last Entry in studentsMap
-
+        Map.Entry<String,Student> last = studentsMap.lastEntry();
         /* TODO 10: If the last entry exists, get the Student object
             from the entry */
-
+        Student student = null;
+        if(last != null){
+            student = (Student)last.getValue();
+        }
+    /* TODO 4: If the first entry exists, get the Student object
+        from the entry */
+        if(student!=null){
+            System.out.println(student.toString());
+            return;
+        }
+        System.out.println("Student does not exist.");
         // TODO 11: If the Student is not null, print the Student object
 
         // TODO 12: If the Student is not null, return from the method.
 
         /* TODO 13: If the last Entry doesn't exist or the Student is
             null, print an error message. */
-
     }
 
     public void findNextStudent(String searchString){
-
+        Map.Entry<String,Student> entry = studentsMap.higherEntry(searchString);
         // TODO 15: Find the higher entry after the searchString
-
+        Student student = null;
+        if(entry != null){
+            student = (Student)entry.getValue();
+        }
+        if(student!=null){
+            System.out.println(student.toString());
+            return;
+        }
+        System.out.println("Student does not exist.");
         /* TODO 16: If an entry is found, get the Student object
             from the entry */
 
@@ -119,7 +146,16 @@ public void findFirstStudent(){
 
 
     public void findPreviousStudent(String searchString) {
-
+        Map.Entry<String,Student> entry = studentsMap.lowerEntry(searchString);
+        Student student = null;
+        if(entry != null){
+            student = (Student)entry.getValue();
+        }
+        if(student!=null){
+            System.out.println(student.toString());
+            return;
+        }
+        System.out.println("Student does not exist.");
         // TODO 22: Find the lower entry before the searchString
 
         // TODO 23: If an entry is found, get the Student object
