@@ -1,5 +1,7 @@
+import java.awt.image.RGBImageFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 
 public class Database {
@@ -27,14 +29,34 @@ public class Database {
 
         /* TODO 1: Initialize a high index variable to the size of
                    the registrations array minus 1.  */
-
+        int high = registrations.size() - 1;
         /* TODO 2: Initialize a low index variable to zero*/
-
+        int low = 0;
         /* TODO 3: Create a Stack to store pairs of low and high indexes for subarrays.
                 Use the stack to iteratively perform QuickSort until all subarrays are processed.
- */
+ *
+         */
+        Stack<Integer> stack = new Stack<>();
+        stack.push(low);
+        stack.push(high);
         /* TODO 4: Within the stack-based loop, call the partition() method passing in the current high and low indexes */
+        while(!stack.empty()) {
+            high = stack.pop();
+            low = stack.pop();
+            int pivoot = partition(high,low);
+            if(pivoot-1 > low) {
+                high = pivoot-1;
+                stack.push(low);
+                stack.push(high);
+            }
+            else if(pivoot+1 < high) {
+                low = pivoot+1;
+                stack.push(low);
+                stack.push(high);
+            }
+            else break;
 
+        }
         /* TODO 5: Store the pivot index returned by partition() to decide which subarrays to push onto the stack next */
 
         /* TODO 22: Implement an If-Else-If-Else statement. The If clause is
@@ -59,12 +81,33 @@ public class Database {
         /* TODO 6: Create a subarray from the registrations array that
                    starts at the low_index and ends at the high_Index
                    plus 1  */
-
+        ArrayList leftArray = new ArrayList();
+        leftArray.addAll(registrations.subList(lowIndx, highIndx+1));
         /* TODO 7: Initialize the pivot element to the last element in the
                    subarray */
-
+        Registration pivot = (Registration) leftArray.get(leftArray.size()-1);
+        int ind = -1;
         /* TODO 8: Initialize a greater-than index with negative 1  */
+        for(int i = 0;i < leftArray.size()-1;i++) {
 
+            Registration reg = (Registration) leftArray.get(i);
+            if(reg.license.compareTo(pivot.license)<0)
+            {
+                ind++;
+                if(ind<i)
+                {
+                    swap(leftArray,i,ind);
+                }
+            }
+        }
+        int pivotInd = ind+1;
+        swap(leftArray,pivotInd,leftArray.size()-1);
+
+        for(int i = 0;i < leftArray.size()-1;i++) {
+            Registration reg = (Registration) leftArray.get(i);
+            registrations.set(lowIndx+i,reg);
+        }
+        return pivotInd+lowIndx;
         /* TODO 9: Create a for loop initializing a current index variable
                  to zero.
            TODO 10: Set the condition so the loop runs as long as the
@@ -100,7 +143,6 @@ public class Database {
 
         /* TODO 21: Replace the return with the pivot index plus the
                     low_Index as an offset to the registrations array. */
-        return 0;
     }
 
     private void swap(List subArray, int i, int j) {
@@ -108,7 +150,7 @@ public class Database {
         Registration jElement = (Registration) subArray.get(j);
         subArray.set(i, jElement);
         subArray.set(j, iElement);
-        /
+
     }
 
     public void bubbleSort() {
@@ -205,7 +247,7 @@ public class Database {
 
         /* TODO 27: Uncomment the last two lines */
         //System.out.println("\n******* Sorted ArrayList ******\n");
-        //db.printAll();
+        db.printAll();
 
     }
 
