@@ -33,8 +33,8 @@ public class StudentInfoSystem {
 
         for(int i = 1; i < students.size(); i++) {
             int j = i-1;
-            while(j>0 && students.get(j).name.compareTo(students.get(j+1).name) > 0) {
-                Collections.swap(students, j+1, j);
+            while(j>=0 && students.get(j).name.compareTo(students.get(j+1).name) > 0) {
+                Collections.swap(students, j, j+1);
                 j--;
             }
         }
