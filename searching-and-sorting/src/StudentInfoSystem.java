@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -15,7 +16,13 @@ public class StudentInfoSystem {
     public List<Subject> sortSubjectsByName() {
         List<Subject> subjectsByName =
                 (List<Subject>) db.subjects.clone();
-
+        for(int i = 0; i < subjectsByName.size()-1; i++) {
+            for(int j = 0; j < subjectsByName.size()-2; j++) {
+                if(subjectsByName.get(i).name.compareTo(subjectsByName.get(j).name) > 0) {
+                    Collections.swap(subjectsByName, i, j);
+                }
+            }
+        }
         /* TODO 6: Implement the bubble sort algorithm to sort the
                    Subject objects by name.*/
         return subjectsByName;
@@ -24,6 +31,13 @@ public class StudentInfoSystem {
     public List<Student> sortStudentsByName(){
         List<Student> students = (List<Student>) db.students.clone();
 
+        for(int i = 1; i < students.size(); i++) {
+            int j = i-1;
+            while(j>0 && students.get(j).name.compareTo(students.get(j+1).name) > 0) {
+                Collections.swap(students, j+1, j);
+                j--;
+            }
+        }
         /* TODO 18: Implement the insertion sort algorithm to sort the
                    Student objects by name.*/
         return students;
@@ -35,12 +49,20 @@ public class StudentInfoSystem {
 
         /* TODO 28: Replace the linear search for the student with a
                    binary search. */
-        for (Student student : students) {
-            if (student.getStudentNumber().equals(studentNumber)) {
+        int left = 0,right  = students.size()-1;
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+            Student student = students.get(mid);
+            if(student.getStudentNumber().equals(studentNumber))
                 return student;
+            if(student.getStudentNumber() < studentNumber)
+            {
+                left=mid+1;
             }
+            else right = mid-1;
         }
-        return null;
+         return null;
     }
 
     /*******************************************************
@@ -148,22 +170,18 @@ public class StudentInfoSystem {
         StudentInfoSystem studentInfoSystem = new StudentInfoSystem();
 
         /* TODO 8: Uncomment the SORT SUBJECTS BY NAME code block */
-        /**********************************************************
-        System.out.println("\n\nSORT SUBJECTS BY NAME\n");
-        List<Subject> subjects = studentInfoSystem.sortSubjectsByName();
-        for (Subject subject : subjects) {
-            System.out.println(subject);
-        }
-         ************************************************************/
+      //  System.out.println("\n\nSORT SUBJECTS BY NAME\n");
+       // List<Subject> subjects = studentInfoSystem.sortSubjectsByName();
+       // for (Subject subject : subjects) {
+       //     System.out.println(subject);
+       // }
 
         /* TODO 20: Uncomment the SORT STUDENTS BY NAME code block. */
-        /**********************************************************
         System.out.println("\n\nSORT STUDENTS BY NAME\n");
         List<Student> students = studentInfoSystem.sortStudentsByName();
         for (Student student : students) {
             System.out.println(student);
         }
-         /************************************************************/
 
     }
 }

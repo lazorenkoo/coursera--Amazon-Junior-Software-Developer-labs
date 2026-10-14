@@ -53,7 +53,7 @@ public class Main {
         System.out.println("Here is a list of subjects available.");
         /* TODO 4: Replace the call to sortSubjectById() to
                    sortSubjectByName() */
-        List<Subject> subjects = studentInfoSystem.sortSubjectsById();
+        List<Subject> subjects = studentInfoSystem.sortSubjectsByName();
 
         for (Subject subject : subjects) {
             System.out.println(" " + subject);
@@ -153,7 +153,7 @@ public class Main {
 
         /* TODO 16: Replace the call to sortStudentsByNumber() with
                    sortStudentsByName() */
-        List<Student> studentsByName = studentInfoSystem.sortStudentsByNumber();
+        List<Student> studentsByName = studentInfoSystem.sortStudentsByName();
 
         for (Student student : studentsByName) {
             System.out.println(student);
