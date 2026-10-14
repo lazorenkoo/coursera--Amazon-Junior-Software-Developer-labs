@@ -16,10 +16,10 @@ public class StudentInfoSystem {
     public List<Subject> sortSubjectsByName() {
         List<Subject> subjectsByName =
                 (List<Subject>) db.subjects.clone();
-        for(int i = 0; i < subjectsByName.size()-1; i++) {
-            for(int j = 0; j < subjectsByName.size()-2; j++) {
-                if(subjectsByName.get(i).name.compareTo(subjectsByName.get(j).name) > 0) {
-                    Collections.swap(subjectsByName, i, j);
+        for(int i = 0; i < subjectsByName.size(); i++) {
+            for(int j = 0; j < subjectsByName.size()-1; j++) {
+                if(subjectsByName.get(j).name.compareTo(subjectsByName.get(j+1).name) > 0) {
+                    Collections.swap(subjectsByName, j, j+1);
                 }
             }
         }
