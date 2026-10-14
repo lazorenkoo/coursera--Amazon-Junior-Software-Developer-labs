@@ -52,6 +52,18 @@ public class Database {
 
         /* TODO 1: Implement a for loop that sets the size of the
                    subarrays. */
+        for(int i = 1; i < n; i*=2){
+            for(int left = 0;left < n-1;left+=2*i)
+            {
+                int  mid = Math.min(left+i-1,n-1);
+                int right =Math.min(left+i*2-1,n-1);
+                ArrayList<Registration> leftArray = new ArrayList<Registration>();
+                leftArray.addAll(registrations.subList(left, mid+1));
+                ArrayList<Registration> rightArray = new ArrayList<Registration>();
+                rightArray.addAll(registrations.subList(mid+1,right+1));
+                merge(left,leftArray,rightArray);
+            }
+        }
         /* TODO 2: Start the subarray size at 1 element. */
         /* TODO 3: Double the subarray size with each iteration. */
         /* TODO 4: Continue to iterate as long as the subarray size
@@ -71,8 +83,8 @@ public class Database {
                    of left and right subarrays */
 
         /* TODO 11: Comment out the next two lines */
-        System.out.println("Left: " + leftStart + ", Right: " + rightStart +
-                ", Right Excluded: " + rightEndExcluded);
+       // System.out.println("Left: " + leftStart + ", Right: " + rightStart +
+             //   ", Right Excluded: " + rightEndExcluded);
 
         /* TODO 12: With each iteration, pass the merge index, which is the
                     left start index, and the two subarrays to the merge( )
@@ -81,7 +93,39 @@ public class Database {
 
     private void merge(int mergeIndex, ArrayList leftArray, ArrayList rightArray) {
         /* TODO 13: Initialize variables used in the method. */
+        int i = 0;
+        int j = 0;
+        ArrayList<Registration>temp = new  ArrayList<>();
+        while (i < leftArray.size() && j < rightArray.size()) {
+            Registration leftReg = (Registration) leftArray.get(i);
+            Registration rightReg = (Registration) rightArray.get(j);
 
+            if(leftReg.license.compareTo(rightReg.license)<0)
+            {
+                temp.add(leftReg);
+                i++;
+            }
+            else {
+                temp.add(rightReg);
+                j++;
+            }
+        }
+        while(i < leftArray.size())
+        {
+            Registration leftReg = (Registration) leftArray.get(i);
+            temp.add(leftReg);
+            i++;
+        }
+        while(j < rightArray.size())
+        {
+            Registration rightReg = (Registration) rightArray.get(j);
+            temp.add(rightReg);
+            j++;
+        }
+        for(int k = 0;k < temp.size();k++)
+        {
+            registrations.set(mergeIndex+k,temp.get(k));
+        }
         /* TODO 14: Implement the first while loop, which iterates over
                     the elements in the subarrays. */
 
@@ -178,8 +222,8 @@ public class Database {
         db.mergeSort();
 
         /* TODO 31: Uncomment the following lines */
-        //System.out.println("\n******* Sorted ArrayList ******\n");
-        //db.printAll();
+        System.out.println("\n******* Sorted ArrayList ******\n");
+        db.printAll();
 
     }
 }
