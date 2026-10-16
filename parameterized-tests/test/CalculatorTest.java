@@ -1,8 +1,16 @@
+import org.junit.function.ThrowingRunnable;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.junit.Assert.*;
 
 public class CalculatorTest {
 
     /** TODO 2: declare an object of the Calculator class named "calculatorTestObject" **/
+    Calculator calculatorTestObject;
 
 
     @BeforeEach
@@ -13,6 +21,7 @@ public class CalculatorTest {
          *          and assign it to "calculatorTestObject"
          *          which you declared in TODO 2
          **/
+        calculatorTestObject = new Calculator();
 
     }
 
@@ -23,6 +32,7 @@ public class CalculatorTest {
          *          is annotated with @AfterEach,
          *          display "Method resources released."
          **/
+        System.out.println("Method resources released");
 
     }
 
@@ -62,14 +72,21 @@ public class CalculatorTest {
      *          the method name becomes
      *          "testSquareOfSingleIntegerNumber()"
       */
-    @Test
-    void squareOfSingleIntegerNumber() {
+
+    @DisplayName("Test square of a number with valid values")
+    @ParameterizedTest
+    @ValueSource(ints = {1,12,10,-1})
+    void testSquareOfSingleIntegerNumber(int numberPassed) {
         /** TODO 10: in this method
          *          "squareOfSingleIntegerNumber()"
          *          calculate the expectedResult
          *          calculate the actualResult
          *          assert if both are equal
          */
+        int answer = numberPassed*numberPassed;
+        int answerAct = calculatorTestObject.squareOfSingleIntegerNumber(numberPassed);
+        assert(answer == answerAct);
+
     }
 
 
@@ -79,15 +96,10 @@ public class CalculatorTest {
      *          add a display name of
      *          "Test addition of int within range returns success"
      **/
+    @DisplayName("Test addition of int within range returns success\"")
     void testAddingOfTwoIntegerNumbersWithinIntegerRange() {
-        /** TODO 1: in this test method
-         *          "testAddingOfTwoIntegerNumbersWithinIntegerRange()"
-         *
-         *          comment this line:
-         *           Calculator calculatorTestObject = new Calculator();
-         *
-         *           used to create an object of the calculator class
-         **/
+
+
         Calculator calculatorTestObject = new Calculator();
 
         // call method being tested with test data
@@ -121,7 +133,12 @@ public class CalculatorTest {
      **         to check if an Exception of type
      *          ArithmeticException is thrown
      **/
-
+    @DisplayName("Test square of a number with invalid values has exception")
+    @ParameterizedTest
+    @ValueSource(ints = {Integer.MIN_VALUE,Integer.MAX_VALUE})
+    void testSquareOfSingleIntegerNumberOutsideIntegerRangeHasException (int numberPassed) {
+        assertThrows(ArithmeticException.class, () -> calculatorTestObject.squareOfSingleIntegerNumber(numberPassed));
+    }
 
    /** TODO 15: copy the test method
     * "testSquareOfSingleIntegerNumberOutsideIntegerRangeHasException()"
@@ -137,7 +154,15 @@ public class CalculatorTest {
     *     using @ValueSource since it
     *     is a parameterized test.
     **/
+   @DisplayName("Test square of a number with valid values but changed actual is not equal")
+   @ParameterizedTest
+   @ValueSource(ints = {2,45,66,77})
+   void testSquareOfSingleIntegerNumberInRangeDeviatesResult(int numberPassed) {
+       int expectedResult = numberPassed * numberPassed ;
+       int actualResult =  calculatorTestObject.squareOfSingleIntegerNumber(numberPassed) + 1;
 
+       assertNotEquals(expectedResult, actualResult);
+   }
    /** TODO 17: copy the code for TODO 17
     *           from the code snippets below
     *           to below TODO 18
@@ -150,7 +175,22 @@ public class CalculatorTest {
     *   which you created in TODO 17
     *   put parameterized values using @CsvSource() annotation
     **/
+   @DisplayName("Test division of int within range returns success")
+   @ParameterizedTest
+   @CsvSource(
+           {
+                   "6, 3, 2",
+                   "12, 5, 2",
+                   "15, 3, 5"
+           }
+   )
 
+   void testDivideTwoIntegerNumbersWithinRangeReturnsSuccesss(int number1, int number2, int expectedResult) {
+       int actualResult =  calculatorTestObject.divideTwoIntegerNumbers(number1,number2);
+
+       assertEquals(expectedResult, actualResult);
+
+   }
 
 }
 
