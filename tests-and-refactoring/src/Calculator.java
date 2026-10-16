@@ -1,5 +1,14 @@
 /** TODO 3: create an empty public class named "Calculator"**/
+class Calculator{
+int AddTwoIntegers(int a,int b){
+    long result = (long)a+b;
+    if(result > Integer.MAX_VALUE || result < Integer.MIN_VALUE){
+        throw new ArithmeticException();
+    }
 
+    return (int)(result);
+}
+}
 /** TODO 7: in the class Calculator
  *          create a method named "addTwoIntegers" which
  *           i.	Accepts two integer values as parameters.

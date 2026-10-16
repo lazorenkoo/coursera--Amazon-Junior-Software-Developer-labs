@@ -3,9 +3,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
 
-
+    Calculator calculatorTestObject;
+    @BeforeEach
+    void setup()
+    {
+        calculatorTestObject = new Calculator();
+    }
     /** TODO 1: create a test method "testCalculatorClassExists" **/
-
+    @Test
+    void testCalculatorClassExists()
+    {
+        assertNotNull(calculatorTestObject);
+    }
     /** TODO 2: inside the test method
      *          "testCalculatorClassExists()"
      *          which you created in TODO 1
@@ -40,7 +49,11 @@ class CalculatorTest {
      *          with the values 2 and 4 passed
      *          as parameters to the method.
      */
-
+    @Test
+    void testAddTwoIntegersMethodExists()
+    {
+        calculatorTestObject.AddTwoIntegers(2,4);
+    }
     /** TODO 8: go to the top of this class
      *          "CalculatorTest" and just after the
      *          opening curly brace of the class,
@@ -70,7 +83,11 @@ class CalculatorTest {
      *          "testAddTwoIntegerMethodAddsCorrectly()"
      *          after TODO 12
      **/
-
+    @Test
+    void  testSubtractTwoIntegersMethodExists()
+    {
+        assertEquals(calculatorTestObject.AddTwoIntegers(2,4),6);
+    }
     /** TODO 12: inside the method
      *           "testAddTwoIntegerMethodAddsCorrectly()"
      *           which you created in TODO 11
@@ -88,7 +105,11 @@ class CalculatorTest {
      *           This will be used to test for exceptions.
      *           Remember to annotate with @Test.
      **/
-
+    @Test
+void  testAddTwoIntegerMethodOnRangeExceedThrowsException()
+{
+    assertThrows(ArithmeticException.class, ()->calculatorTestObject.AddTwoIntegers(Integer.MAX_VALUE,1));
+}
     /** TODO 15: in the test method named
      *           "testAddTwoIntegerMethodOnRangeExceedThrowsException()"
      *           which you created in TODO 14.
