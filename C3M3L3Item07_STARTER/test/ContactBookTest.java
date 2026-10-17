@@ -9,8 +9,8 @@ class ContactBookTest {
     // common object for ContactBook
     static ContactBook contactBook;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         contactBook = new ContactBook();
     }
 
@@ -110,7 +110,7 @@ class ContactBookTest {
          *            passed a phone number which does not exist in the list of contacts like
          *            923746439503.
          **/
-        assertThrows(IllegalArgumentException.class, () -> {contactBook.deleteContactByPhone("939503");});
+        assertThrows(IllegalArgumentException.class, () -> {contactBook.deleteContactByPhone("923746439503");});
     }
 }
 
