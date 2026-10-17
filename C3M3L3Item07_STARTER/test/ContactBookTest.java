@@ -15,13 +15,15 @@ class ContactBookTest {
     }
 
     @Test
-    public void testAddContact() {
+    public void testAddContact() throws Exception {
         Contact testContact = new Contact("AmazonStudent","1111122334");
 
         /** TODO 1: add the Contact named "AmazonStudent" to the contactBook
          *          using the method "addContact()" of the class "ContactBook"
          **/
+        int currentNumOfContacts = contactBook.getNumberOfContacts();
 
+        contactBook.addContact(testContact);
         /** TODO 3: get the number of current contacts by calling the method
          *          "getNumberOfContacts()" of the object "contactBook" and
          *          assign the value returned to a variable named "currentNumOfContacts"
@@ -33,7 +35,7 @@ class ContactBookTest {
          *          "getNumberOfContacts()" of the object "contactBook" is
          *          1 greater than the value of "currentNumOfContacts"
          **/
-
+        assertEquals(currentNumOfContacts + 1, contactBook.getNumberOfContacts());
     }
 
     @ParameterizedTest
@@ -45,20 +47,19 @@ class ContactBookTest {
             "Toni, 53939257",
             "Casey, 63939258"
     })
-    public void testAddContact_onSizeLimitExceed_returnsFalseAndNotException(String name, String phone) {
+    public void testAddContact_onSizeLimitExceed_returnsFalseAndNotException(String name, String phone) throws Exception {
             Contact testContact = new Contact(name, phone);
             assertTrue(contactBook.addContact(testContact));
     }
 
     @Test
-    public void testAddContact_onSameNumber_ThrowsIllegalArgumentException() {
+    public void testAddContact_onSameNumber_ThrowsIllegalArgumentException() throws Exception {
 
         Contact testContact1 = new Contact("Alex","11111");
         Contact testContact2 = new Contact("Toni","11111");
 
         // first contact
         contactBook.addContact(testContact1);
-
         // second contact with same phone number
         //check if exception is thrown
         assertThrows(IllegalArgumentException.class, () -> {
@@ -69,7 +70,13 @@ class ContactBookTest {
 
 
     @Test
-    public void testSearchContactByPhone() {
+    public void testSearchContactByPhone() throws Exception {
+
+        Contact testContactForPhone = new Contact("Toni","184048");
+        contactBook.addContact(testContactForPhone);
+        assertNotNull(contactBook.searchContactByPhone("184048"));
+        assertEquals("Toni", contactBook.searchContactByPhone("184048").getName());
+        assertEquals("184048", contactBook.searchContactByPhone("184048").getPhoneNumber());
 
         /** TODO 7: Do the following:
          *          i. create a contact with the name "Toni" and contact number "184048"
@@ -85,11 +92,11 @@ class ContactBookTest {
     }
 
     @Test
-    public void testRemoveContactByPhone_found_returnsTrue() {
+    public void testRemoveContactByPhone_found_returnsTrue() throws Exception {
 
         Contact testContactForPhone = new Contact("Wills","939503");
         contactBook.addContact(testContactForPhone);
-
+        assertTrue(contactBook.deleteContactByPhone("939503"));
         /** TODO 9: assert that when the method "deleteContactByPhone()"
          *          is called with the phone number 939503, it returns true
          **/
@@ -103,6 +110,7 @@ class ContactBookTest {
          *            passed a phone number which does not exist in the list of contacts like
          *            923746439503.
          **/
+        assertThrows(IllegalArgumentException.class, () -> {contactBook.deleteContactByPhone("939503");});
     }
 }
 

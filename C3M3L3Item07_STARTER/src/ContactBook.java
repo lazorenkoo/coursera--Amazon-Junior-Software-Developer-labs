@@ -48,7 +48,21 @@ public class ContactBook {
      *          true or false. Return the default
      *          value true
      **/
+    public boolean addContact(Contact contact) throws Exception {
 
+        if(numberOfContacts <= MAX_CONTACTS-1) {
+            if(!contactWithSameNumberExists(contact)) {
+
+                contacts[numberOfContacts] = contact;
+                numberOfContacts++;
+                return true;
+            }
+            else {
+                throw new IllegalArgumentException("Contact already exists");
+            }
+        }
+        else return false;
+    }
     /** TODO 4: in the method "addContact()" which you created in TODO 2
      *          remove the default return value of true and then:
      *              i. assign the contact object to the array
@@ -85,21 +99,26 @@ public class ContactBook {
 
     public Contact searchContactByPhone(String phoneNumber) {
         Contact returnContact = null;
+        for(int i=1; i<=numberOfContacts; i++) {
+            if(contacts[i-1].getPhoneNumber().equals(phoneNumber)) {
+                return contacts[i-1];
 
+            }
+        }
+        return null;
         /** TODO 8: Add the code to loop through the existing contact object in the
          *         contacts array from the beginning. Each time check if the phone number is same.
          *         If it is return the contact and break the loop.
          *         Otherwise return the default contact object which is returnContact.
          *              Hint:  Look at method contactWithSameNumberExists()  which contains similar logic.
          **/
-        return returnContact;
     }
 
-    public boolean deleteContactByPhone(String phoneNumber) {
+    public boolean deleteContactByPhone(String phoneNumber) throws Exception {
         boolean recordFound = false;
 
         for(int i=1; i<=numberOfContacts; i++) {
-            if(contacts[i-1].getPhoneNumber().equalsIgnoreCase(phoneNumber)) {
+            if(contacts[i-1].getPhoneNumber().equals(phoneNumber)) {
 
                 System.arraycopy(contacts, i, contacts, i, numberOfContacts - i);
                 contacts[--numberOfContacts] = null;
@@ -113,7 +132,7 @@ public class ContactBook {
          *           to throw an IllegalArgumentException with any message
          *           you like to indicate the record was not found.
           **/
-      return  recordFound;
+      throw (new IllegalArgumentException("Contact not found"));
 
     }
 }
