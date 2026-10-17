@@ -48,7 +48,7 @@ public class ContactBook {
      *          true or false. Return the default
      *          value true
      **/
-    public boolean addContact(Contact contact) throws Exception {
+    public boolean addContact(Contact contact) {
 
         if(numberOfContacts <= MAX_CONTACTS-1) {
             if(!contactWithSameNumberExists(contact)) {
@@ -114,7 +114,7 @@ public class ContactBook {
          **/
     }
 
-    public boolean deleteContactByPhone(String phoneNumber) throws Exception {
+    public boolean deleteContactByPhone(String phoneNumber) {
         boolean recordFound = false;
 
         for(int i=1; i<=numberOfContacts; i++) {
