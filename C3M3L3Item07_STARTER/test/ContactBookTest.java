@@ -21,6 +21,7 @@ class ContactBookTest {
         /** TODO 1: add the Contact named "AmazonStudent" to the contactBook
          *          using the method "addContact()" of the class "ContactBook"
          **/
+
         int currentNumOfContacts = contactBook.getNumberOfContacts();
 
         contactBook.addContact(testContact);

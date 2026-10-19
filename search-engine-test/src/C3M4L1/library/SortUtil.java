@@ -4,12 +4,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import C3M4L1.Book;
 
 public class SortUtil {
 
     public static void bubbleSort(List<Book> books, Comparator<Book> comparator) {
         // TODO - missing code
+        int size = books.size();
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size-1; j++) {
+                if(comparator.compare(books.get(j), books.get(j+1)) > 0) {
+                    Book temp = books.get(j);
+                    books.set(j, books.get(j+1));
+                    books.set(j+1, temp);
+                }
+            }
+        }
     }
 
     public static void insertionSort(List<Book> books, Comparator<Book> comparator) {

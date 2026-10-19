@@ -1,4 +1,5 @@
 package C3M4L1.library;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -25,6 +26,14 @@ public class UserInteractionLogger {
     // Generic method to log messages with a timestamp
     public void log(String message) {
     // TODO - missing code.
+        try {
+            FileWriter fw = new FileWriter(new File(LOG_FILE), true);
+            String logEntry = LocalDateTime.now().toString() + " " + message;
+            fw.write(logEntry);
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

@@ -4,13 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import C3M4L1.Book;
 
 public class LibrarySerializer {
 
     public void saveLibrary(List<Book> books, String fileName) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
-                            // TODO - missing code
+            oos.writeObject(books);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,6 +25,7 @@ public class LibrarySerializer {
         try
                 (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             // TODO - missing code
+            return (List<Book>) ois.readObject();
         }
         catch (EOFException e) {
 
