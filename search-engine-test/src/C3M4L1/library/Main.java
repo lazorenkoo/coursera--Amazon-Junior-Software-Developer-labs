@@ -17,7 +17,7 @@ public class Main {
             System.out.println("Loading data from books.txt...");
             library.loadBooks("src/resources/data/books.txt");
         }
-        
+
         LibraryMenu menu = new LibraryMenu(library);
 
         menu.displayMenu();

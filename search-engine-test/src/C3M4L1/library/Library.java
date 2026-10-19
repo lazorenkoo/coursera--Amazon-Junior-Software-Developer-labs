@@ -38,8 +38,13 @@ public class Library {
             if(book.getAuthor().toLowerCase().contains(keyword)) {
                 return book;
             }
-            if(book.getPublicationYear()==Integer.parseInt(keyword)) {
-                return book;
+            try {
+                int year = Integer.parseInt(keyword);
+
+                if (book.getPublicationYear() == year) {
+                    return book;
+                }
+            } catch (NumberFormatException e) {
             }
         }
         return null;
